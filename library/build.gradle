@@ -24,6 +24,19 @@ apply from: '../config/style.gradle'
 apply from: '../config/coverage.gradle'
 apply from: '../config/javadoc.gradle'
 
+android {
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/LICENSE.txt', 'META-INF/NOTICE.txt']
+        }
+    }
+    lint {
+        disable 'InvalidPackage', 'TrulyRandom', 'UseCompoundDrawables', 'GradleDependency'
+        warningsAsErrors true
+    }
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar

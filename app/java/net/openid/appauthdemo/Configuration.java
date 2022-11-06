@@ -59,6 +59,7 @@ public final class Configuration {
     private String mConfigError;
 
     private String mClientId;
+    private String mClientSecret;
     private String mScope;
     private Uri mRedirectUri;
     private Uri mEndSessionRedirectUri;
@@ -126,6 +127,11 @@ public final class Configuration {
     @Nullable
     public String getClientId() {
         return mClientId;
+    }
+
+    @Nullable
+    public String getClientSecret() {
+        return mClientSecret;
     }
 
     @NonNull
@@ -203,6 +209,7 @@ public final class Configuration {
 
         mConfigHash = configData.sha256().base64();
         mClientId = getConfigString("client_id");
+        mClientSecret = getConfigString("client_secret");
         mScope = getRequiredConfigString("authorization_scope");
         mRedirectUri = getRequiredConfigUri("redirect_uri");
         mEndSessionRedirectUri = getRequiredConfigUri("end_session_redirect_uri");

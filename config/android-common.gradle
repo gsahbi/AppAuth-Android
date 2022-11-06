@@ -3,8 +3,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.compileSdkVersion
-        versionCode rootProject.versionNum
-        versionName rootProject.versionName
     }
     sourceSets {
         main.manifest.srcFile 'AndroidManifest.xml'
@@ -19,14 +17,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    lintOptions {
-        warningsAsErrors true
-        disable 'InvalidPackage', 'TrulyRandom', 'UseCompoundDrawables', 'GradleDependency'
-    }
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
     }
 }
 

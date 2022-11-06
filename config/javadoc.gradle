@@ -17,7 +17,7 @@ task androidJavadoc(type: JavaExec) {
             '-link', 'https://developer.android.com/reference/',
             '-linkoffline', 'https://developer.android.com/reference/', 'https://developer.android.com/reference/androidx/',
             '-doclet', 'org.jdrupes.mdoclet.MDoclet',
-            '-docletpath', configurations.mdDoclet.files.asType(List).join(":"),
+            '-docletpath', (configurations.mdDoclet.files as List).join(":"),
             '-source', '8',
             '-d', ext.destinationDir,
             '-Xdoclint:none',

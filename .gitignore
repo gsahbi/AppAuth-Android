@@ -6,3 +6,6 @@ library/build
 .idea/*
 *.iml
 appauth.keystore
+.DS_Store
+app/.idea/
+app/res/raw/*.json
