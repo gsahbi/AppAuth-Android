@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
@@ -329,13 +330,13 @@ public class TokenActivity extends AppCompatActivity {
         performActionWithFreshTokens(this::fetchUserInfo);
     }
 
-    @MainThread
+        @MainThread
     private void performActionWithFreshTokens(@NonNull AuthState.AuthStateAction action) {
 
         ClientAuthentication clientAuthentication;
         if (Configuration.getInstance(TokenActivity.this).getClientSecret() != null) {
-            clientAuthentication = new ClientSecretPost(
-                Configuration.getInstance(TokenActivity.this).getClientSecret()
+            clientAuthentication = new ClientSecretBasic(
+                Objects.requireNonNull(Configuration.getInstance(TokenActivity.this).getClientSecret())
             );
         } else {
             try {
@@ -347,7 +348,18 @@ public class TokenActivity extends AppCompatActivity {
                 return;
             }
         }
-        mStateManager.getCurrent().performActionWithFreshTokens(mAuthService, clientAuthentication, action);
+
+        mStateManager.getCurrent()
+            .performActionWithFreshTokens(mAuthService, clientAuthentication,
+                new AuthState.AuthStateAction() {
+                    @Override
+                    public void execute(@Nullable @org.jetbrains.annotations.Nullable String accessToken,
+                                        @Nullable @org.jetbrains.annotations.Nullable String idToken,
+                                        @Nullable @org.jetbrains.annotations.Nullable AuthorizationException ex) {
+                        mStateManager.replaceAfterTokenResponse();
+                        action.execute(accessToken, idToken, ex);
+                    }
+                });
 
     }
 

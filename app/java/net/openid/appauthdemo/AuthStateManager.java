@@ -103,6 +103,14 @@ public class AuthStateManager {
 
     @AnyThread
     @NonNull
+    public AuthState replaceAfterTokenResponse() {
+        AuthState current = getCurrent();
+        return replace(current);
+    }
+
+
+    @AnyThread
+    @NonNull
     public AuthState updateAfterTokenResponse(
             @Nullable TokenResponse response,
             @Nullable AuthorizationException ex) {
